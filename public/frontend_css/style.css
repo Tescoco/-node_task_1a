@@ -836,6 +836,16 @@ input::-ms-input-placeholder {
   width: -moz-max-content;
   position: relative;
 }
+#page4 .nameContainer {
+  width: 204px;
+  height: 100px;
+  position: absolute;
+  top: 83px;
+  left: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #page4 .createdByName {
   font: 16px "Necto Mono";
   font-weight: 700;
@@ -844,14 +854,12 @@ input::-ms-input-placeholder {
   padding-bottom: 4px;
   border-bottom: 1px solid black;
 }
+
 #page4 .customImgRow img {
   width: 335px;
   margin-right: 50px;
 }
 @media only screen and (max-width: 992px) {
-  #page4 .createdByNameContainer {
-    left: 39%;
-  }
   #page4 .customImgRow img {
     margin-right: unset;
   }
