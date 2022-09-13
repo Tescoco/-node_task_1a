@@ -1228,18 +1228,20 @@ async function askQuestion(totalQuizQuestions, counter, fromBack) {
 
     //Added checkAllergie to selectionBtn answer class except none
     $(".selectionBtn").on("click", (e) => {
-      if (e.target.dataset.val !== "none") {
-        return checkAllergie();
-      }
+      return checkAllergie(e.target.dataset.val);
     });
 
     //when none of the above option is selected
     $("#none").on("click", () => {
 
       //set the selections to null and handleNoneOfTheAbove() is called
-      alreadyAnswered.answer = null;
+      if (alreadyAnswered) {
+        alreadyAnswered.answer = null
+      } else {
+        alreadyAnswered = null
+      }
       handleNoneOfTheAbove();
-    }); /* */
+    });
 
     if (alreadyAnswered && alreadyAnswered.answer) {
       if (Array.isArray(alreadyAnswered.answer)) {
@@ -1287,8 +1289,44 @@ async function askQuestion(totalQuizQuestions, counter, fromBack) {
   currentQuestionCounter++;
 }
 
-function checkAllergie() {
-  console.log("hello")
+async function terminateQuiz() {
+
+  //set the default currentQuestionCounter to 1000000 seconds
+  currentQuestionCounter = 1000000;
+  clearTimeout(closeResponseTimeout);
+
+  $("#page1").hide();
+  $("#page2").hide();
+  $("#page3").hide();
+  $("#page4").hide();
+  $("#page5").hide();
+  $("#page6").hide();
+  $("#page7").hide();
+  $("#page8").hide();
+  $("#progressBarSection").hide();
+  $("#terminatePage").css("display", "flex");
+
+  const res = await fetch("/admin/getTerminationMsg");
+  const { terminationMsg, countDownNo } = await res.json();
+  let i = 10;
+  $(".terminationMsg").text(terminationMsg);
+
+  $(".countDownNo").text(i);
+  const interval = setInterval(() => {
+    $(".countDownNo").text(--i);
+    if (i === 0) {
+      //clear interval
+      clearInterval(interval);
+      //redirect
+      window.location.href = "/";
+    }
+  }, 1000);
+}
+
+function checkAllergie(ingredient) {
+  if (ingredient !== "none" && ["Banana", "Olive", "Sunflowers"].includes(ingredient)) {
+    terminateQuiz()
+  }
 }
 
 

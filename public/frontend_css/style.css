@@ -1447,3 +1447,21 @@ img.image-missing {
   display: none;
   border-left: none;
 }
+
+#terminatePage {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font: 20px "Necto Mono";
+}
+#terminatePage .terminatePageInner {
+  width: 70%;
+}
+#terminatePage .terminatePageInner .terminationMsgInner {
+  font: italic 32px "Bradford LL";
+}
